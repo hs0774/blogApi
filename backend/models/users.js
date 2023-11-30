@@ -20,4 +20,4 @@ UserSchema.virtual("url").get(function(){
 UserSchema.virtual("fullname").get(function(){
     return `${this.firstname} ${this.lastname}`
 })
-module.exports = mongoose.model("Creator",Schema)
+module.exports = mongoose.model("User",UserSchema)

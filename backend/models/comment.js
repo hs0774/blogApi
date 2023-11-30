@@ -13,5 +13,8 @@ const CommentSchema = new Schema({
     blog: { type: Schema.Types.ObjectId, ref: 'Blog' }, 
 })
 
+CommentSchema.virtual("url").get(function(){
+    return `/api/comments/${this._id}`
+})
 
 module.exports = mongoose.model("Comment",CommentSchema)

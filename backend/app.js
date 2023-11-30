@@ -1,4 +1,4 @@
-require("dotenv")
+require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors'); // Import the cors package
 
 const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api.js');
 
 const app = express();
 
@@ -29,10 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
+app.use('/api',apiRouter);
 
-app.get('/api', function(req, res, next) {
-  res.json({"users":["user1","user2","user3"]});
-});
+// app.get('/api', function(req, res, next) {
+//   res.json({"users":["user1","user2","user3"]});
+// });
 
 const PORT = 5000;
 
