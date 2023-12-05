@@ -6,15 +6,18 @@ const { body, validationResult } = require("express-validator");
 
 
 // //when user clicks on blog
-// router.get('/v1/blog/:id',blogController.blogItemGet);
-exports.blogItemGet = asyncHandler(async (req,res,next) => {
-    res.json('message list coming soon');
+exports.index = asyncHandler(async (req,res,next) => {
+    const blogs = await Blog.find().limit(3).exec();
+    res.json(blogs);
 })
 
 exports.blogCreateGet = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })
 
+exports.blogItemGet = asyncHandler(async (req,res,next) => {
+    res.json('single item blog coming soon')
+})
 exports.blogCreatePost = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })

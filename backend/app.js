@@ -6,10 +6,10 @@ const logger = require('morgan');
 const cors = require('cors'); // Import the cors package
 
 const indexRouter = require('./routes/index');
-const apiRouter = require('./routes/api.js');
+const apiRouter = require('./routes/api');
 
 const app = express();
-
+app.use(cors());
 //Set up mongoose connection 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery",false);
@@ -27,14 +27,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Enable CORS for all routes
-app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/api',apiRouter);
 
-// app.get('/api', function(req, res, next) {
-//   res.json({"users":["user1","user2","user3"]});
-// });
 
 const PORT = 5000;
 

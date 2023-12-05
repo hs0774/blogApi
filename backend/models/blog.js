@@ -12,7 +12,7 @@ const BlogSchema = new Schema({
 })
 
 BlogSchema.virtual("url").get(function(){
-    return `/api/blog/${this._id}`
+    return `/api/v1/blog/${this._id}`
 })
 
 module.exports = mongoose.model("Blog",BlogSchema)

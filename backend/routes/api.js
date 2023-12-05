@@ -8,9 +8,7 @@ const userController = require("../controllers/userController");
 
 // Version 1 routes
 //home page route
-router.get('/v1/', (req, res, next) => {
-  res.json({ "users": ["user1", "user2", "user3"] });
-});
+router.get('/v1',blogController.index);
 
 //consumer/user privileges 
 
