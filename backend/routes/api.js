@@ -25,6 +25,7 @@ router.get('/v1/blog/:id',blogController.blogItemGet);
 
 //when user wants to cud comment
 router.post('/v1/comment/create',commentController.commentCreatePost);
+
 router.put('/v1/comment/:id/update',commentController.commentUpdate);
 router.delete('/v1/comment/:id/delete',commentController.commentDelete);
 

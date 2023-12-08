@@ -5,8 +5,8 @@ const Schema = mongoose.Schema
 const CommentSchema = new Schema({
     title:{type:String},
     content:{type:String,required:true,maxLength:230},
-    likes:{type:Number},
-    dislikes:{type:Number},
+    likes:{type:Number,default:0},
+    dislikes:{type:Number,default:0},
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     blog: { type: Schema.Types.ObjectId, ref: 'Blog' }, 
 })

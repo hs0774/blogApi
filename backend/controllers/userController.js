@@ -1,9 +1,16 @@
+require("dotenv").config();
 const User = require('../models/users')
 const Blog = require("../models/blog")
 const Comment = require('../models/comment')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const asyncHandler = require("express-async-handler")
 const { body, validationResult } = require("express-validator");
+
+//reusable token generator function
+const createToken = (email) => {
+    return jwt.sign({email:email},process.env.SECRET)
+}
 
 exports.signupGet = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
@@ -65,7 +72,8 @@ exports.signupPost = [
             return; 
         } else {
             await newUser.save();
-            res.redirect("/")
+            const token = createToken(req.body.email)
+            res.status(200).json({token,username:req.body.username,email:req.body.email})
         }
     })       
 
@@ -76,13 +84,35 @@ exports.loginGet = asyncHandler(async (req,res,next) => {
 })
 
 exports.loginPost = asyncHandler(async (req,res,next) => {
-    res.json('message list coming soon');
+    const userInfo = await User.findOne({email:req.body.email})
+    if(!userInfo){
+        console.log("no such user exists")
+        res.json({ error: 'Invalid email' });
+        return;
+    }
+    const matchingPassword = await bcrypt.compare(req.body.password,userInfo.password);
+    if(!matchingPassword){
+        res.json({ error: 'Invalid password' });
+    }
+    const token = createToken(req.body.email)
+    res.status(200).json({ success: true, message: 'Login successful',token,username:userInfo.username,email:req.body.email });
 })
 
 exports.userdetailGet = asyncHandler(async (req,res,next) => {
-    res.json('message list coming soon');
+    const [user, blogs] = await Promise.all([
+        User.findById(req.params.id),
+        Blog.find({ author: req.params.id }),
+    ]);
+    
+    if(!user){
+        return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({user,blogs})
+
 })
 
+
+///consumers can ask to be creators and post blogs 
 exports.creatorPrivilegeGet = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })
@@ -91,6 +121,8 @@ exports.creatorPrivilegePost = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })
 
+
+//creators can request to be admins 
 exports.adminPrivilegeGet = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })

@@ -1,28 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import Home from './components/Home'
+import Navbar from './components/Navbar'
+import Signup from './components/signup'
+import Login from './components/login'
+import Create from './components/Create'
+import Blog from "./components/Blog"
+import User from './components/User'
 
-function App() {
-  const [backEndData, setBackEndData] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api') // Making a GET request to your backend
-      .then(response => response.json()) // Parsing the JSON response
-      .then(data => {
-        if (data && data.users) {
-          setBackEndData(data.users); // Setting the received data to state
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
-  return (
-    <div>
-      {backEndData.map((user, i) => (
-        <h1 key={i}>{user}q</h1>
-      ))}
-    </div>
-  );
+function App () {
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Navbar />
+                <div className='pages'>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={<Navigate to="/api/v1" />}
+                        />
+                        <Route
+                            path="/api/v1"
+                            element={<Home />}    
+                        />
+                        <Route 
+                            path='/api/v1/signup'
+                            element={<Signup />}
+                        />
+                        <Route 
+                            path='/api/v1/login'
+                            element={<Login />}
+                        />
+                        <Route 
+                            path='/api/v1/create'
+                            element={<Create />}
+                        />
+                        <Route
+                            path='/api/v1/blog/:id'
+                            element={<Blog />}
+                        />
+                        <Route
+                            path='/api/v1/user/:id'
+                            element={<User />}
+                        />
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </div>
+    )
 }
 
 export default App;

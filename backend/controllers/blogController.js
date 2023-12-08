@@ -16,8 +16,21 @@ exports.blogCreateGet = asyncHandler(async (req,res,next) => {
 })
 
 exports.blogItemGet = asyncHandler(async (req,res,next) => {
-    res.json('single item blog coming soon')
+   const blog = await Blog.findById(req.params.id).populate('author');
+   const comment = await Comment.find({blog:req.params.id}).populate('author').exec();
+//    console.log(comment)
+   if(!blog){
+    res.status(404).json({ error: 'No matching blog found' });
+   }
+   res.status(200).json({blog,comment})
 })
+
+
+//creator privileges 
+exports.blogCreateGet = asyncHandler(async (req,res,next) => {
+    res.json('message list coming soon');
+})
+
 exports.blogCreatePost = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })
@@ -29,11 +42,3 @@ exports.blogItemUpdate = asyncHandler(async (req,res,next) => {
 exports.blogItemDelete = asyncHandler(async (req,res,next) => {
     res.json('message list coming soon');
 })
-
-//creator privileges 
-//create blog can hide will redirect to user page and have hidden tag if applicable 
-// router.get('/v1/blog/create',blogController.blogCreateGet);
-// router.post('/v1/blog/create',blogController.blogCreatePost);
-
-// router.put('/v1/blog/:id/update',blogController.blogItemUpdate);
-// router.delete('/v1/blog/:id/delete',blogController.blogItemDelete);

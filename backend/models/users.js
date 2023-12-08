@@ -10,14 +10,17 @@ const UserSchema =  new Schema({
     password:{type:String,minLength:1,required:true},
     role: { type: String, enum: ["consumer", "creator"], default: "consumer" },
     admin:{type:Boolean,default:false},
-})
+}, {
+    toJSON: { virtuals: true }
+});
 
 
 UserSchema.virtual("url").get(function(){
-    return `/api/v1/users/${this._id}`
+    return `/api/v1/user/${this._id}`
 })
 
 UserSchema.virtual("fullname").get(function(){
     return `${this.firstname} ${this.lastname}`
 })
+
 module.exports = mongoose.model("User",UserSchema)
