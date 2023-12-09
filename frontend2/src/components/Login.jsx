@@ -5,7 +5,7 @@ import { useAuth } from '../pages/Authcontext';
 function Login() {
 
   const { login } = useAuth();
-  const [error,setErrors] = useState(null);
+  const [error,setError] = useState(null);  
   const [formData, setFormData] = useState({
     email:'',
     password:'',
@@ -24,7 +24,7 @@ function Login() {
     e.preventDefault();
     console.log('loggin in');
 
-    const response = await fetch('http://localhost:5000/api/v1/login',{
+    const response = await fetch('http://localhost:5000/api/v1/creator/login',{
       method:'POST',
       headers: {
         'Content-type': 'application/json',
@@ -34,19 +34,19 @@ function Login() {
    console.log('logged?')
     if (!response.ok) {
       const data = await response.json();
-      setErrors(data.error); // Update state with the received errors
+      setError(data.error); // Update state with the received errors
+      console.log('failed');
       return; // Stop further execution
     } else {
-      const {token,username} = await response.json();
-      localStorage.setItem('token', token);
-      localStorage.setItem('username',username);
-      login({token,username}); 
-      setFormData({
+     setFormData({
         email:'',
         password:'',
       });
-      navigate('/api/v1')
-
+    const {token,username} = await response.json();
+    localStorage.setItem('token', token);
+    localStorage.setItem('username',username);
+    login({token,username}); 
+    navigate('/api/v1')
     }
   }
 
@@ -66,7 +66,6 @@ function Login() {
         <div className="form-group submit-group">
           <button type="submit">Log in!</button>
         </div>
-        <p>Not a member? <Link to="/api/v1/signup">Click here to sign up</Link></p>
       </form>
     </div>
   );

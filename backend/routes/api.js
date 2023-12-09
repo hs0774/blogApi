@@ -12,13 +12,18 @@ router.get('/v1',blogController.index);
 
 //consumer/user privileges 
 
-//sign up 
+//sign up FRONTEND1
 router.get('/v1/signup',userController.signupGet);
 router.post('/v1/signup',userController.signupPost);
 
-//login
+//login 
+//frontend1
 router.get('/v1/login',userController.loginGet);
 router.post('/v1/login',userController.loginPost);
+
+//frontend2
+router.get('/v1/creator/login',userController.loginGet);
+router.post('/v1/creator/login',userController.creatorLoginPost);
 
 //when user clicks on blog
 router.get('/v1/blog/:id',blogController.blogItemGet);

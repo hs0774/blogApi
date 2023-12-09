@@ -5,10 +5,11 @@ const Schema = mongoose.Schema
 const BlogSchema = new Schema({
     title:{type:String,required:true},
     content:{type:String,required:true},
-    likes:{type:Number},
-    dislikes:{type:Number},
+    likes:{type:Number,default:0},
+    dislikes:{type:Number,default:0},
     timestamp:{type:Date,default:Date.now},
     author: { type: Schema.Types.ObjectId, ref: 'User' },
+    isVisible:{type:Boolean,default:true},
 }, {
     toJSON: { virtuals: true } // Include virtuals when converting to JSON
 });

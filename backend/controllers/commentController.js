@@ -64,7 +64,7 @@ exports.commentCreatePost = [
         } else {
             newComment.save();
         }
-     })
+      })
 ]
 
 exports.commentUpdate = asyncHandler(async (req,res,next) => {

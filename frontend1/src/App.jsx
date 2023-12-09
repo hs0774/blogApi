@@ -1,8 +1,8 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
-import Signup from './components/signup'
-import Login from './components/login'
+import Signup from './components/Signup'
+import Login from './components/Login'
 import Create from './components/Create'
 import Blog from "./components/Blog"
 import User from './components/User'
