@@ -8,6 +8,8 @@ const User = () => {
     const { user } = useAuth();
     const token = localStorage.getItem('token');
 
+    const navigate = useNavigate();
+
     const [userBlogs, setUserBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error,setError] = useState(null);
@@ -55,13 +57,13 @@ const User = () => {
         }
     }
 
-    const editClick = () => {
-
+    const editClick = async (blog_id) => {
+       navigate(`/api/v1/blog/${blog_id}/update`)
     }
-    
+
     const hideClick = async (blog_id) => {
         const response = await fetch(`http://localhost:5000/api/v1/blog/${blog_id}/isVisible`, {
-            method:'PUT',
+            method:'GET',
             headers:{
                 'Content-type': 'application/json',
                 Authorization : `Bearer ${token}`

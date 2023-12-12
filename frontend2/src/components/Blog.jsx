@@ -18,7 +18,7 @@ function Blog() {
         title:'',
         message:'',
     })
-
+    
     useEffect(()=>{
         fetch(`http://localhost:5000/api/v1/blog/${id}`)
         .then(resp => resp.json())
@@ -29,6 +29,7 @@ function Blog() {
           setLoading(false);
         });
     },[id,success])
+
     if (loading) {
         return <p>Loading...</p>; // Display a loading indicator while fetching data
     }

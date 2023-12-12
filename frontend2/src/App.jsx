@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Create from './components/Create'
 import Blog from "./components/Blog"
 import User from './components/User'
+import Update from "./components/Update"
 
 
 function App () {
@@ -39,6 +40,10 @@ function App () {
                             path='/api/v1/user/:id'
                             element={<User />}
                         />
+                        <Route
+                            path='api/v1/blog/:id/update'
+                            element={<Update />}
+                        />    
                     </Routes>
                 </div>
             </BrowserRouter>

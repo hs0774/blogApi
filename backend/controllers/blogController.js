@@ -83,7 +83,33 @@ exports.blogCreatePost = [
 ]
 
 exports.blogItemUpdate = asyncHandler(async (req,res,next) => {
-    res.json('message list coming soon');
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1];
+    console.log(req.body)
+    if(!token) {
+        return res.status(401).json({message:'Unauthorized'});
+    }
+
+    jwt.verify(token, process.env.SECRET, (err,decodedToken) => {
+        if(err) {
+            return res.status(403).json({message: "Invalid token"});
+        }
+        req.user = decodedToken;
+    });
+
+    try {
+        const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            content: req.body.content
+        }, { new: true }); // { new: true } ensures the updated document is returned
+
+        if (!updatedBlog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+        res.status(200).json({ updatedBlog });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating blog', error: error.message });
+    }
 })
 
 exports.blogItemDelete = asyncHandler(async (req,res,next) => {
@@ -121,6 +147,7 @@ exports.blogItemDelete = asyncHandler(async (req,res,next) => {
     await Comment.deleteMany({blog:req.params.id})  
     res.status(200).send();
 })
+
 exports.blogHide = asyncHandler(async (req,res,next) => {
     try {
         const authHeader = req.headers['authorization']

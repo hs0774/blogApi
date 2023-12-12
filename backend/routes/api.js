@@ -47,6 +47,7 @@ router.post('/v1/request',userController.creatorPrivilegePost);
 router.get('/v1/blog/create',blogController.blogCreateGet);
 router.post('/v1/blog/create',blogController.blogCreatePost);
 
+// router.get('/v1/blog/:id/update',blogController)
 router.put('/v1/blog/:id/update',blogController.blogItemUpdate);
 router.delete('/v1/blog/:id/delete',blogController.blogItemDelete);
 
