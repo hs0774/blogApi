@@ -1,1 +1,11 @@
-
+.blogItems{
+  border: 1px solid white;
+}
+.commentsectionContainer{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.blogItemsContainer{
+  display: flex;
+  flex-direction: column-reverse;
+}

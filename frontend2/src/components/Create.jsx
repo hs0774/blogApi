@@ -35,14 +35,14 @@ function Create(){
         });
         const data = await response.json()
         if(!response.ok) {
-            const data = await response.json();
             setError(data.error); // Update state with the received errors
             console.log('failed');
             return; // Stop further execution
         } else {
             //const data = await response.json()
-            console.log(data.id);
-            navigate(`/api/v1/user/${data.id}`)
+            console.log(data);
+           // {`/api/v1/blog/${blog._id}`}
+            navigate(`/api/v1/blog/${data.id}`)
         }
     }
 

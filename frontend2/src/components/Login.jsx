@@ -32,21 +32,27 @@ function Login() {
       body: JSON.stringify(formData),
     })
    console.log('logged?')
+   
     if (!response.ok) {
       const data = await response.json();
       setError(data.error); // Update state with the received errors
       console.log('failed');
       return; // Stop further execution
+
     } else {
-     setFormData({
-        email:'',
-        password:'',
-      });
-    const {token,username} = await response.json();
-    localStorage.setItem('token', token);
-    localStorage.setItem('username',username);
-    login({token,username}); 
-    navigate('/api/v1')
+        setFormData({
+            email:'',
+            password:'',
+        });
+
+        const {token,username,id} = await response.json();
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('username',username);
+        localStorage.setItem('id',id)
+
+        login({token,username,id}); 
+        navigate('/api/v1')
     }
   }
 

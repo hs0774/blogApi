@@ -25,9 +25,8 @@ const Home = () => {
           {homeBlog && homeBlog.map((blog) => (
             <div className="blogHomeItem" key={blog._id}>
               <h2>{blog.title}</h2>
-              <p>
-                {blog.content.split('\n')[0]} 
-              </p>
+                {/* {blog.content.split('\n')[0]}  */}
+                <div dangerouslySetInnerHTML={{ __html: blog.content.split('<br>')[0] }}></div>
               <Link to={`/api/v1/blog/${blog._id}`}>
                 <strong> CLICK TO READ MORE...</strong>
               </Link>

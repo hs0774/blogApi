@@ -17,7 +17,7 @@ const Home = () => {
   if (loading) {
     return <p>Loading...</p>; // Display a loading indicator while fetching data
    }
-      
+
   return (
     <div className="homeContainer">
       <div className="home">
@@ -26,7 +26,8 @@ const Home = () => {
             <div className="blogHomeItem" key={blog._id}>
               <h2>{blog.title}</h2>
               <p>
-                {blog.content.split('\n')[0]} 
+                {/* {blog.content.split('\n')[0]}  */}
+                <div dangerouslySetInnerHTML={{ __html: blog.content.split('<br>')[0] }}></div>
               </p>
               <Link to={`/api/v1/blog/${blog._id}`}>
                 <strong> CLICK TO READ MORE...</strong>

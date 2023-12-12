@@ -116,7 +116,7 @@ exports.userdetailGet = asyncHandler(async (req,res,next) => {
 
 exports.creatorLoginPost = asyncHandler(async (req,res,next) => {
     const userInfo = await User.findOne({email:req.body.email})
-    console.log(userInfo,userInfo.role)
+    console.log(userInfo,userInfo.id)
     if(!userInfo || userInfo.role != 'creator'){
         console.log("no such user exists")
         return res.status(401).json({ error: 'Invalid email' });
@@ -127,7 +127,7 @@ exports.creatorLoginPost = asyncHandler(async (req,res,next) => {
         return res.status(401).json({ error: 'Invalid password' });
     }
     const token = createToken(req.body.email)
-    res.status(200).json({ success: true, message: 'Login successful',token,username:userInfo.username,email:req.body.email });
+    res.status(200).json({ success: true, message: 'Login successful',token,username:userInfo.username,email:req.body.email,id:userInfo.id });
 })
 
 ///consumers can ask to be creators and post blogs 

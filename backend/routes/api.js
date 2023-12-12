@@ -31,7 +31,7 @@ router.get('/v1/blog/:id',blogController.blogItemGet);
 //when user wants to cud comment
 router.post('/v1/comment/create',commentController.commentCreatePost);
 
-router.put('/v1/comment/:id/update',commentController.commentUpdate);
+//router.put('/v1/comment/:id/update',commentController.commentUpdate);
 router.delete('/v1/comment/:id/delete',commentController.commentDelete);
 
 //when user clicks on creator might change to /creator
@@ -53,6 +53,7 @@ router.delete('/v1/blog/:id/delete',blogController.blogItemDelete);
 router.get('/v1/admin/request',userController.adminPrivilegeGet);
 router.post('/v1/admin/request',userController.adminPrivilegePost);
 
+router.put('/v1/blog/:id/isVisible',blogController.blogHide);
 
 //admin privileges 
 router.put('/v1/user/:id',userController.adminPrivilegeUpdate);

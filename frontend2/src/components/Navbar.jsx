@@ -8,12 +8,16 @@ import { useAuth } from '../pages/Authcontext';
 const Navbar = () => {
     const { user,logout } = useAuth();
     const navigate = useNavigate();
+    console.log(user)
+    
     const handleClick = () => {
         logout();
     }
+
     const blogCreate = () => {
         navigate('/api/v1/create')
     }
+
     return (
         <header>
             <div className="NavContainer">
@@ -25,7 +29,7 @@ const Navbar = () => {
                 <div className='right'>
                     {user ?
                         <>
-                            <p>Hello, {user.username}</p>
+                            <p>Hello, <Link to={`/api/v1/user/${user.id}`}>{user.username}</Link></p>
                             <button onClick={blogCreate}>Create</button>
                             <button onClick={handleClick}>Logout</button>
                         </> 

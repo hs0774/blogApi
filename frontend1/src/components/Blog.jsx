@@ -62,9 +62,10 @@ function Blog() {
     return (
         <>
         <h2>Title:{blogItem.blog.title}</h2>
-        {blogItem.blog.content.split('\n').map((paragraph, index) => (
+        {/* {blogItem.blog.content.split('\n').map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
-        ))}
+        ))} */}
+        <div dangerouslySetInnerHTML={{ __html: blogItem.blog.content }}></div>
         <p>likes:{blogItem.blog.likes}</p>
         <p>dislikes:{blogItem.blog.dislikes}</p>
         <p>timestamp:{blogItem.blog.date}</p>

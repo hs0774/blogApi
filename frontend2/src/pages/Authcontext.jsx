@@ -9,8 +9,9 @@ export const AuthProvider = ({ children }) => {
         // Fetch token and user email from localStorage or context
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('username')
-        if(token && username){
-            setUser({ token, username });
+        const id = localStorage.getItem('id');
+        if(token && username && id){
+            setUser({ token, username,id });
         }
       }, []);
 
@@ -19,8 +20,8 @@ export const AuthProvider = ({ children }) => {
     };
 
   const logout = () => {
-    setUser(null);
     localStorage.clear();
+    setUser(null);
   };
 
   return (
